@@ -8,8 +8,8 @@
 
     <EditText
         android:id="@+id/message"
-        android:layout_width="289dp"
-        android:layout_height="56dp"
+        android:layout_width="382dp"
+        android:layout_height="54dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
@@ -20,23 +20,37 @@
 
     <Button
         android:id="@+id/sendMessage"
-        android:layout_width="89dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="147dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="2dp"
         android:text="Send"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/message"
+        app:layout_constraintEnd_toStartOf="@+id/savedMessages"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/chatList"
-        android:layout_width="399dp"
-        android:layout_height="624dp"
+        android:layout_width="386dp"
+        android:layout_height="570dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="52dp"
         app:layout_constraintBottom_toTopOf="@+id/message"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.347"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/savedMessages"
+        android:layout_width="153dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="2dp"
+        android:text="Saved messages"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/message"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

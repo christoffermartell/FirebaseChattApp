@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,13 +32,14 @@ public class ChatActivity extends AppCompatActivity {
 
 
     EditText message;
-    Button send;
+    Button send, savedMessages;
     ListView chatMessage;
     ArrayAdapter arrayAdapter;
     ArrayList<String> messages = new ArrayList<>();
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
+    DatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,11 @@ public class ChatActivity extends AppCompatActivity {
         message = findViewById(R.id.message);
         send = findViewById(R.id.sendMessage);
         chatMessage = findViewById(R.id.chatList);
+        savedMessages = findViewById(R.id.savedMessages);
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        mDatabaseHelper = new DatabaseHelper(this);
 
 
         Intent intent = getIntent();
@@ -138,7 +143,45 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        // For SQLITE
+
+        chatMessage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                String selectedFromList = (String) (chatMessage.getItemAtPosition(position));
+
+                String newEntry = selectedFromList;
+                AddData(newEntry);
+                Log.d("TAG", "onClick: Message Saved Correctly");
+               toastMessage("Message Saved Correctly");
+            }
+        });
+
+        savedMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(ChatActivity.this,ListDataActivity.class);
+                startActivity(intent1);
+            }
+        });
+
 
 
     }
+    public void AddData(String newEntry){
+        boolean insertData = mDatabaseHelper.addData(newEntry);
+
+        if (insertData){
+            toastMessage("Data Successfully Inserted");
+        }else{
+            toastMessage("Something Went Wrong");
+        }
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
 }

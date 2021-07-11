@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseChattApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".ListDataActivity"></activity>
+        <activity android:name=".ChatActivity" />
         <activity android:name=".ChatListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
